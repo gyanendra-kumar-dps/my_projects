@@ -17,6 +17,8 @@ body{
   margin:0;
   padding:0;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(to right,#4284DB,#29EAC4);
 }
 .container {
@@ -88,4 +90,43 @@ body{
   padding: 20px;
   background-color: rgba(255,255,255,0.3);
   justify-content: space-between;
+}
+.sidebar {
+  width: 220px;
+  background: rgba(255,255,255,0.15);
+  height: 100vh;
+  padding-top: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  transition: 0.5s;
+}
+.sidebar a:hover {
+  background: rgba(255,255,255,0.2);
+  border-radius: 5px;
+}
+.main{
+  display: flex;
+  flex-direction: row;
+}
+.cards{
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  flex:1;
+  gap:20px
+}
+.card{
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+}
+.analytic_card{
+  display: flex;
+  flex-direction: row;
+  gap:20px
 }

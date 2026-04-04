@@ -60,6 +60,39 @@ function DashBoard(){
           Welcome,User
         </h4>
       </div>
+      <div className="main">
+        <div className="sidebar">
+          <a href="#">🏠 Dashboard</a>
+          <a href="#">📊 Analytics</a>
+          <a href="#">👤 Profile</a>
+          <a href="#">⚙️ Settings</a>
+          <a href="#">🚪 Logout</a>
+        </div>
+        <div className='cards'>
+          <div className='card'>
+            <h1>Welcome Back</h1>
+            <p>Here are your Analytics</p>
+          </div>
+          <div className='analytic_card'>
+            <div className='card'>
+              <h1>Welcome Back</h1>
+              <p>Here are your Analytics</p>
+            </div>
+            <div className='card'>
+              <h1>Welcome Back</h1>
+              <p>Here are your Analytics</p>
+            </div>
+            <div className='card'>
+              <h1>Welcome Back</h1>
+              <p>Here are your Analytics</p>
+            </div>
+            <div className='card'>
+              <h1>Welcome Back</h1>
+              <p>Here are your Analytics</p>
+            </div>
+          </div>
+          </div>
+      </div>
     </div>
   )
 }
