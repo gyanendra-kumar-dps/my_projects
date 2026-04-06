@@ -8,15 +8,23 @@ CORS(app,origins=["http://localhost:5173"])
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///admissions.db'
 db=SQLAlchemy(app)
 bcrypt=Bcrypt(app)
+# class User(db.Model):
+#     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+#     user=db.Column(db.String(64),nullable=False)
+#     password=db.Column(db.String(256),nullable=False)
+# class Enrollment(db.Model):
+#     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+#     user=db.Column(db.String(64),nullable=False)
+#     course=db.Column(db.String(32),nullable=False)
 class User(db.Model):
-    id=db.Column(db.Integer,primary_key=True,autoincrement=True)
-    user=db.Column(db.String(64),nullable=False)
-    password=db.Column(db.String(256),nullable=False)
-    db_ref=db.relationship("Enrollment",backref="enroll",lazy=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user = db.Column(db.String(64), nullable=False, unique=True)
+    password = db.Column(db.String(256), nullable=False)
+    enrollments = db.relationship("Enrollment", backref="user_ref", lazy=True)
 class Enrollment(db.Model):
-    id=db.Column(db.Integer,db.ForeignKey('user.id'),primary_key=True,autoincrement=True)
-    user=db.Column(db.String(64),nullable=False)
-    course=db.Column(db.String(32),nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    course = db.Column(db.String(32), nullable=False)
 with app.app_context():
     db.create_all()
 @app.route("/signup",methods=['POST'])

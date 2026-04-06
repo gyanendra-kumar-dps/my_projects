@@ -1,6 +1,6 @@
-import {Reac,use,useEffect,useRef,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import {setStudentType,setConfirmStudentType,setCourse,setConfirmCourse} from './ReduxConfig.jsx'
+import {setStudentType,setConfirmStudentType,setCourse,setConfirmCourse,setEnrolledCourses} from './ReduxConfig.jsx'
 import { useNavigate } from 'react-router-dom';
 export const StepOne=()=>{
     const dispatchFunction=useDispatch()
@@ -140,6 +140,7 @@ export function StepFive() {
     const [error,setError]=useState(false)
     const selector=useSelector((state) => state.auth)
     const navigate=useNavigate()
+    const dispatchFunction=useDispatch()
     console.log(selector.curUser)
     const handleSubmit=async ()=>{
         try{
@@ -153,11 +154,12 @@ export function StepFive() {
                 setError(true)
             }else{
                 setError(false)
-                navigate('/dashboard')
+                dispatchFunction(setEnrolledCourses([...selector.EnrolledCourses,selector.CourseSelected]))
+                navigate("/enrollments")
             }
             console.log(jsonResult)
-        }catch{
-
+        }catch(err){
+          console.log(err)
         }
     }
     const payload={

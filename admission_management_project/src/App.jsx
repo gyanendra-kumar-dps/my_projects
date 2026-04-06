@@ -26,6 +26,7 @@ function LoginPage(){
       const jsonresult=await res.json()
       if(jsonresult.success){
         dispatchFunction(login(jsonresult.user))
+
         navigate('/dashboard')
       }else{
         setShake(true)
@@ -100,27 +101,31 @@ function SignUp(){
 function EnrolledCourses(){
   const selector=useSelector((state) => state.auth)
   const dispatchFunction=useDispatch()
-  useEffect(()=>{
-    const fetchEnrollments=async ()=>{
-      try{
-        if(selector.EnrolledCourses.length==0){
-          const res=
-          await fetch(`http://localhost:6767/enrollments/${selector.curUser}`,{
-            method:"GET",
-            headers:{"Content-Type":"application/json"},
-          })
-          const jsonResult=await res.json()
+  useEffect(() => {
+    const fetchEnrollments = async () => {
+      try {
+        if (selector.EnrolledCourses.length === 0) {
+          const res = await fetch(
+            `http://localhost:6767/enrollments/${selector.curUser}`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+
+          const jsonResult = await res.json()
           console.log(jsonResult)
-          if(jsonResult.success){
-              dispatchFunction(setEnrolledCourses(jsonResult.enrollments))
+          if (jsonResult.success) {
+            dispatchFunction(setEnrolledCourses(jsonResult.enrollments))
           }
         }
-      }catch(err){
+      } catch (err) {
         console.log(err)
       }
     }
+
     fetchEnrollments()
-  })
+  }, [])
   return(
     <div className="card-container">
       <h2>Your enrolled courses</h2>
@@ -147,7 +152,7 @@ function AdminView(){
   const selector=useSelector((state) => state.auth)
   const dispatchFunction=useDispatch()
   useEffect(()=>{
-    const fetchEnrollments=async ()=>{
+    const fetchEnrollments=async (dispatch)=>{
       try{
         if(selector.EnrolledCourses.length==0){
           const res=
@@ -158,14 +163,14 @@ function AdminView(){
           const jsonResult=await res.json()
           console.log(jsonResult)
           if(jsonResult.success){
-              dispatchFunction(setEnrolledCourses(jsonResult.enrollments))
+              dispatch(setEnrolledCourses(jsonResult.enrollments))
           }
         }
       }catch(err){
         console.log(err)
       }
     }
-    fetchEnrollments()
+    fetchEnrollments(dispatchFunction)
   })
   return(
     <div className="card-container">
