@@ -155,7 +155,7 @@ export function StepFive() {
             }else{
                 setError(false)
                 dispatchFunction(setEnrolledCourses([...selector.EnrolledCourses,selector.CourseSelected]))
-                navigate("/enrollments")
+                navigate("/dashboard")
             }
             console.log(jsonResult)
         }catch(err){

@@ -56,7 +56,7 @@ function LoginPage(){
   )
 }
 function SignUp(){
-  const [error,setError]=useState(null);
+  const [error,setError]=useState("");
   const dispatchFunction=useDispatch()
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -73,6 +73,7 @@ function SignUp(){
         console.log(jsonresult)
       }else{
         setError(jsonresult.message)
+        setTimeout(()=>setError(""),1000)
       }
     }
   return(
@@ -101,6 +102,7 @@ function SignUp(){
 function EnrolledCourses(){
   const selector=useSelector((state) => state.auth)
   const dispatchFunction=useDispatch()
+  const navigate=useNavigate()
   useEffect(() => {
     const fetchEnrollments = async () => {
       try {
@@ -164,6 +166,7 @@ function AdminView(){
           console.log(jsonResult)
           if(jsonResult.success){
               dispatch(setEnrolledCourses(jsonResult.enrollments))
+              navigate('/dashboard')
           }
         }
       }catch(err){
